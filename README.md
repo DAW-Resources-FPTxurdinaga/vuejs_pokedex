@@ -8,7 +8,7 @@ Cada apartado introduce nuevos conceptos y construye sobre lo anterior.
 
 ## 🧱 0. creación del proyecto y estructura base
 
-> Carpeta: `docs/00-creacion-proyecto.md`
+[Ver la documentación del bloque 0](docs/00-creacion-proyecto.md)
 
 * Crear un proyecto Vue 3 con Vite.
 * Entender la estructura (`main.js`, `App.vue`).
@@ -18,7 +18,7 @@ Cada apartado introduce nuevos conceptos y construye sobre lo anterior.
 
 ## 🔤 1. conceptos básicos de Vue
 
-> Carpeta: `docs/01-conceptos-basicos.md`
+[Ver la documentación del bloque 1](docs/01-conceptos-basicos.md)
 
 * Interpolación: `{{ }}`
 * Reactividad con `ref()`
