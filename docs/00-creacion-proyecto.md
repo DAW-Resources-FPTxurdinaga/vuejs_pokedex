@@ -1,20 +1,22 @@
+# 🧱 00. Creación del proyecto y estructura base
 
-# 🧱 0. creación del proyecto y estructura base
-
-En este apartado dejamos preparada la base del proyecto sobre la que construiremos nuestra Pokedex.
-
----
-
-## 🎯 objetivos
-
-* Crear un proyecto Vue 3 con Vite.
-* Entender la estructura básica (`main.js`, `App.vue`).
-* Ejecutar el proyecto en local.
-* Dejar todo listo para empezar con los fundamentos de Vue.
+En este apartado vamos a crear el proyecto Vue 3 con Vite y a revisar la estructura mínima con la que vamos a trabajar.
+Este será el punto de partida para construir la Pokedex paso a paso.
 
 ---
 
-## 🚀 1. crear el proyecto
+## 🎯 Objetivos
+
+* Crear un proyecto Vue 3 usando Vite.
+* Entender qué hacen `main.js` y `App.vue`.
+* Ejecutar el proyecto en local y confirmar que funciona.
+* Dejar todo preparado para comenzar con los conceptos básicos de Vue.
+
+---
+
+# 📌 1. Crear el proyecto
+
+Vamos a generar un nuevo proyecto llamado `pokedex-vue`:
 
 ```bash
 npm create vue@latest pokedex-vue
@@ -23,17 +25,23 @@ npm install
 npm run dev
 ```
 
+Después de ejecutar `npm run dev`, podrás abrir el proyecto en el navegador y ver la plantilla inicial de Vue.
+
 ---
 
-## 📁 2. estructura mínima
+# 📌 2. Estructura mínima
+
+Dentro de `src/` encontrarás la estructura base:
 
 ```
 src/
-  main.js     → punto de entrada
+  main.js     → punto de entrada de la aplicación
   App.vue     → componente raíz
 ```
 
-### main.js
+### `main.js`
+
+Es el archivo que crea la aplicación y monta el componente principal:
 
 ```js
 import { createApp } from 'vue'
@@ -42,13 +50,15 @@ import App from './App.vue'
 createApp(App).mount('#app')
 ```
 
-### App.vue
+### `App.vue`
+
+Es el componente raíz. De momento, mostraremos un contenido muy sencillo:
 
 ```vue
 <template>
   <div class="app">
-    <h1>pokedex vue</h1>
-    <p>primer proyecto con vue 3</p>
+    <h1>Pokedex Vue</h1>
+    <p>Primer proyecto con Vue 3</p>
   </div>
 </template>
 
@@ -64,17 +74,28 @@ createApp(App).mount('#app')
 </style>
 ```
 
----
-
-## 📝 ejercicio
-
-1. Cambia el título por uno personalizado.
-2. Añade tu nombre o grupo.
-3. Cambia algún estilo.
+En los siguientes apartados iremos transformando este componente para convertirlo en la Pokedex.
 
 ---
 
-## ✔️ siguiente apartado
+# 📝 Ejercicios
 
-Ve a:
-**`docs/01-conceptos-basicos.md`**
+Realiza estos ejercicios para asegurarte de que entiendes la estructura básica del proyecto:
+
+1. Crea un valor reactivo sencillo (por ejemplo, un texto) y muéstralo en la plantilla.
+2. Añade un botón que modifique ese valor cuando lo pulses.
+3. Crea un segundo componente `.vue` en la carpeta `src/` y muéstralo en `App.vue`.
+4. Añade una sección nueva en el template usando etiquetas HTML y comprueba que se muestra correctamente.
+5. Crea una variable reactiva que contenga un número y muestra ese número incrementándose cada vez que pulses un botón.
+
+Estos ejercicios te ayudarán a practicar la estructura y a confirmar que todo funciona antes de avanzar.
+
+---
+
+# 🔗 Enlaces
+
+🔙 **Volver al índice general**
+[Ir al README](../README.md)
+
+⏭️ **Siguiente apartado**
+[01 — Conceptos básicos](./01-conceptos-basicos.md)

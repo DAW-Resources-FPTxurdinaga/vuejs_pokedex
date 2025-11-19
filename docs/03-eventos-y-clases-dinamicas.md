@@ -1,38 +1,28 @@
-# 🔥 03. eventos y clases dinámicas en la pokedex
+# 🔥 03. Eventos y clases dinámicas en la Pokedex
 
-En esta tercera parte añadiremos interactividad real a la Pokedex:
-
-* Marcar y desmarcar pokémon como **favoritos**.
-* Manejar **eventos** con `@click`.
-* Aplicar **clases dinámicas** en función del estado.
-* Mostrar el **número total de favoritos**.
-
-Es el primer paso hacia tener una aplicación viva: el usuario interactúa y la interfaz responde.
+En este apartado vas a añadir interactividad real a la Pokedex.
+Aprenderás a escuchar eventos, modificar el estado de los pokémon y aplicar estilos de forma dinámica en función de ese estado.
 
 ---
 
-## 🎯 objetivos
+## 🎯 Objetivos del apartado
 
-Al terminar este apartado, el alumnado sabrá:
-
-* Escuchar eventos (`@click`) y ejecutar funciones.
-* Modificar propiedades dentro de elementos de un array reactivo.
-* Aplicar clases dinámicas con `:class="{ ... }"`.
-* Crear una `computed()` derivada del estado (contador de favoritos).
+* Escuchar eventos del usuario con `@click`.
+* Modificar propiedades dentro de un array reactivo.
+* Aplicar clases dinámicas usando `:class="{ … }"`.
+* Crear una propiedad computada que derive información del estado (número de favoritos).
 
 ---
 
-# 🧱 1. añadir la propiedad `favorito` a cada pokémon
+# 📌 1. Añadir la propiedad `favorito` a cada pokémon
 
-En el array estático del `<script setup>` añadimos esta propiedad:
+Para poder marcar pokémon como favoritos, primero necesitas incluir esta propiedad dentro del array inicial.
+Esto permite que cada pokémon tenga su propio estado visual.
 
-```js
-favorito: false
-```
+```vue
+<script setup>
+import { ref } from 'vue'
 
-Ejemplo:
-
-```js
 const pokemons = ref([
   {
     id: 1,
@@ -63,51 +53,60 @@ const pokemons = ref([
     favorito: false
   }
 ])
+</script>
 ```
 
 ---
 
-# 🧠 2. función `toggleFavorito(id)`
+# 📌 2. Crear la función `toggleFavorito(id)`
 
-Creamos una función que reciba el `id` del pokémon y cambie el valor de `favorito`:
+Ahora vas a crear una función que cambie el valor de `favorito` de un pokémon cada vez que se pulse un botón.
+Esto te permitirá alternar entre marcado y desmarcado.
 
-```js
+```vue
+<script setup>
+// ...
+
 const toggleFavorito = (id) => {
   const pokemon = pokemons.value.find(p => p.id === id)
   if (pokemon) {
     pokemon.favorito = !pokemon.favorito
   }
 }
+</script>
 ```
 
-Explicación para clase:
+**Ideas clave:**
 
-* `find()` busca el pokémon con ese `id`.
-* Al modificar `pokemon.favorito`, Vue vuelve a renderizar solo lo necesario.
-* No hace falta `.value` en el template (sí en JS).
+* `find()` localiza al pokémon por su `id`.
+* Cambiar `pokemon.favorito` actualiza automáticamente la interfaz.
+* En el template no necesitas `.value`.
 
 ---
 
-# 🖱️ 3. escuchar eventos con `@click`
+# 📌 3. Escuchar eventos con `@click`
 
-Dentro del listado (`v-for`), añadimos un botón:
+Dentro del listado, vas a añadir un botón que permita marcar o desmarcar cada pokémon.
 
 ```vue
-<button class="fav-btn" @click="toggleFavorito(pokemon.id)">
+<button
+  class="fav-btn"
+  @click="toggleFavorito(pokemon.id)"
+>
   {{ pokemon.favorito ? '★' : '☆' }}
 </button>
 ```
 
-Explicación:
+Esto te permite:
 
-* `@click` ejecuta la función cuando el usuario pulsa.
-* Usamos el estado para mostrar un icono u otro.
+* Ejecutar la función cuando el usuario interactúa.
+* Mostrar un icono distinto según el estado del pokémon.
 
 ---
 
-# 🎨 4. clases dinámicas
+# 📌 4. Aplicar clases dinámicas
 
-Añadimos un borde dorado cuando el pokémon es favorito:
+Para resaltar los favoritos, puedes añadir una clase solo cuando `pokemon.favorito` sea `true`.
 
 ```vue
 <li
@@ -117,7 +116,7 @@ Añadimos un borde dorado cuando el pokémon es favorito:
 >
 ```
 
-Y en los estilos:
+En los estilos:
 
 ```css
 .favorito {
@@ -126,85 +125,134 @@ Y en los estilos:
 }
 ```
 
+Las clases dinámicas te permiten adaptar la interfaz según los datos sin duplicar HTML.
+
 ---
 
-# 📊 5. contador de favoritos (`computed`)
+# 📌 5. Crear un contador de favoritos (computed)
 
-Creamos una propiedad computada:
+Vas a crear una propiedad computada que calcule cuántos pokémon están marcados como favoritos.
 
-```js
+```vue
+<script setup>
+// ...
+
 const totalFavoritos = computed(() =>
   pokemons.value.filter(p => p.favorito).length
 )
+</script>
 ```
 
-La mostramos encima del listado:
+Y lo muestras en el template:
 
 ```vue
 <p class="contador-favs">
-  favoritos: {{ totalFavoritos }}
+  Favoritos: {{ totalFavoritos }}
 </p>
 ```
 
 ---
 
-# 🧩 6. plantilla final de este bloque (extracto)
+# 📌 6. Resultado final integrado
 
 ```vue
-<p class="contador-favs">
-  favoritos: {{ totalFavoritos }}
-</p>
+<template>
+  <p class="contador-favs">
+    Favoritos: {{ totalFavoritos }}
+  </p>
 
-<ul class="pokemon-grid">
-  <li
-    v-for="pokemon in pokemonsFiltrados"
-    :key="pokemon.id"
-    :class="{ favorito: pokemon.favorito }"
-  >
-    <button
-      class="fav-btn"
-      @click="toggleFavorito(pokemon.id)"
+  <ul class="pokemon-grid">
+    <li
+      v-for="pokemon in pokemonsFiltrados"
+      :key="pokemon.id"
+      :class="{ favorito: pokemon.favorito }"
     >
-      {{ pokemon.favorito ? '★' : '☆' }}
-    </button>
+      <button
+        class="fav-btn"
+        @click="toggleFavorito(pokemon.id)"
+      >
+        {{ pokemon.favorito ? '★' : '☆' }}
+      </button>
 
-    <img
-      :src="pokemon.imagen"
-      :alt="`imagen de ${pokemon.nombre}`"
-      class="pokemon-image"
-    >
+      <img
+        :src="pokemon.imagen"
+        :alt="`imagen de ${pokemon.nombre}`"
+        class="pokemon-image"
+      >
 
-    <h3>#{{ pokemon.id }} {{ pokemon.nombre }}</h3>
-    <p>tipos: {{ pokemon.tipos.join(', ') }}</p>
-  </li>
-</ul>
+      <h3>#{{ pokemon.id }} {{ pokemon.nombre }}</h3>
+      <p>Tipos: {{ pokemon.tipos.join(', ') }}</p>
+    </li>
+  </ul>
+</template>
 ```
 
 ---
 
-# 📝 ejercicios
+# 🎨 Estilos recomendados
 
-### ✔️ nivel básico
+```vue
+<style scoped>
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
 
-1. Cambia el icono del favorito por un corazón ❤️.
-2. Cambia el borde dorado por un fondo suave (por ejemplo, amarillo claro).
+.fav-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
 
-### ✔️ nivel intermedio
+.favorito {
+  border: 2px solid gold;
+  border-radius: 8px;
+}
 
-3. Añade un botón **"mostrar solo favoritos"** usando una computed extra.
-4. Crea un estilo distinto para pokémon de tipo fuego, agua, planta… usando clases dinámicas.
+.contador-favs {
+  margin: 1rem 0;
+  font-weight: bold;
+}
 
-### ✔️ nivel avanzado
-
-5. Añade una transición CSS para que el borde aparezca suavemente.
-6. Guarda el estado de favoritos en `localStorage` para que no se pierda al recargar.
+.pokemon-image {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+</style>
+```
 
 ---
 
-# ✔️ siguiente apartado: componentes (`04-componentes-basicos.md`)
+# 📝 Ejercicios
 
-En el siguiente bloque:
+Realiza estos ejercicios para practicar los conceptos de este apartado.
 
-* Crearemos un componente `PokemonCard.vue`.
-* Aprenderemos a usar `props`, `emits`, `scoped` y arquitectura Vue modular.
-* Refactorizaremos la Pokedex para dejar el código limpio y escalable.
+1. Crea un botón que permita marcar **todos** los pokémon como favoritos y otro que los desmarque.
+
+2. Añade una propiedad computada que devuelva **solo los IDs** de los pokémon favoritos y muéstrala en pantalla.
+
+3. Crea un filtro adicional que permita mostrar solo los pokémon cuyo nombre **tenga más de 7 letras**.
+
+4. Añade un contador que indique **cuántos favoritos hay de cada tipo**.
+
+5. Haz que el estilo de favorito se active **mediante una transición de Vue**, no solo CSS.
+
+---
+
+Si quieres, ahora adapto también los ejercicios de los bloques 01 y 02 para que cumplan esta misma norma estricta.
+
+---
+
+# 🔗 Enlaces
+
+🔙 **Volver al índice general**
+[Ir al README](../README.md)
+
+⏭️ **Siguiente apartado**
+[04 — Componentes básicos](./04-componentes-basicos.md)

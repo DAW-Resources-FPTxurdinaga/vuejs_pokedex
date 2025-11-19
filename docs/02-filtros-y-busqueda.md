@@ -1,34 +1,27 @@
-# 📄 **02-filtros-y-busqueda.md — Búsqueda con v-model y filtros con computed**
+# 🔍 02. Búsqueda y filtros en la Pokedex (v-model + computed)
 
-Aquí tienes el documento listo para copiar/pegar:
-
----
-
-# 🔍 2. búsqueda y filtros en la pokedex (v-model + computed)
-
-En este apartado añadiremos a la Pokedex:
-
-* Un **buscador por nombre** usando `v-model`.
-* Un **filtro por tipo** usando `<select>`.
-* Una **propiedad computada** para mostrar solo los pokémon que coinciden.
+En este apartado vas a mejorar la Pokedex añadiendo herramientas para buscar y filtrar pokémon.
+Aprenderás a enlazar inputs con el estado usando `v-model` y a usar propiedades computadas para crear filtros dinámicos y eficientes.
 
 ---
 
-## 🎯 objetivos de este apartado
+## 🎯 Objetivos del apartado
 
-* Usar **v-model** para enlazar inputs con estado reactivo.
-* Entender la diferencia entre `v-model` y `@input + v-bind`.
-* Crear **propiedades computadas** con `computed()`.
-* Filtrar listas de forma eficiente sin repetir lógica en el template.
+* Usar `v-model` para enlazar inputs con valores reactivos.
+* Entender qué aporta `v-model` frente a `@input` + `v-bind`.
+* Crear propiedades computadas con `computed()`.
+* Filtrar listas sin lógica repetida en el template.
 
 ---
 
-## 📁 1. preparar el estado en App.vue
+# 📌 1. Preparar el estado en App.vue
 
-Añadimos dos estados nuevos:
+Para poder buscar o filtrar, primero vas a crear dos valores reactivos:
 
-* `search`: texto que escribe el usuario.
-* `tipoSeleccionado`: tipo elegido en un `<select>`.
+* `search`: texto del buscador.
+* `tipoSeleccionado`: tipo seleccionado en un `<select>`.
+
+También generarás la lista de tipos disponible de forma automática.
 
 ```vue
 <script setup>
@@ -37,16 +30,36 @@ import { ref, computed } from 'vue'
 const titulo = ref('pokedex vue')
 
 const pokemons = ref([
-  { id: 1, nombre: 'bulbasaur', tipos: ['planta', 'veneno'], imagen: 'https://...' },
-  { id: 4, nombre: 'charmander', tipos: ['fuego'], imagen: 'https://...' },
-  { id: 7, nombre: 'squirtle', tipos: ['agua'], imagen: 'https://...' },
-  { id: 25, nombre: 'pikachu', tipos: ['eléctrico'], imagen: 'https://...' }
+  {
+    id: 1,
+    nombre: 'bulbasaur',
+    tipos: ['planta', 'veneno'],
+    imagen: '/img/bulbasaur.png'
+  },
+  {
+    id: 4,
+    nombre: 'charmander',
+    tipos: ['fuego'],
+    imagen: '/img/charmander.png'
+  },
+  {
+    id: 7,
+    nombre: 'squirtle',
+    tipos: ['agua'],
+    imagen: '/img/squirtle.png'
+  },
+  {
+    id: 25,
+    nombre: 'pikachu',
+    tipos: ['eléctrico'],
+    imagen: '/img/pikachu.png'
+  }
 ])
 
-// 🔍 nuevo: búsqueda por nombre
+// texto del buscador
 const search = ref('')
 
-// 🔥 nuevo: filtro por tipo
+// tipo seleccionado en el filtro
 const tipoSeleccionado = ref('todos')
 
 // lista de tipos detectada automáticamente
@@ -60,9 +73,10 @@ const tiposDisponibles = computed(() => {
 
 ---
 
-## 📌 2. crear las propiedades computadas de filtrado
+# 📌 2. Crear la propiedad computada de filtrado
 
-Creamos una **computed** que devuelva solo los Pokémon que cumplen los filtros.
+Ahora vas a crear una propiedad computada que devuelva solo los pokémon que cumplen los filtros.
+Esta técnica es muy útil porque te permite mantener el template limpio y evitar duplicar lógica.
 
 ```vue
 <script setup>
@@ -84,24 +98,25 @@ const pokemonsFiltrados = computed(() => {
 </script>
 ```
 
-Puntos clave para explicar:
+**Ideas clave:**
 
-* **No** filtramos en el template (eso lo veremos en fundamentos avanzados).
-* `computed()` *se recalcule solo cuando cambien sus dependencias*, no en cada render.
-* Se enseña el patrón profesional: **estado crudo** + **estado derivado**.
+* `computed()` solo se recalcula cuando cambian las variables que usa.
+* Filtrar aquí evita meter condiciones largas dentro del `v-for`.
+* Este patrón (estado base + estado derivado) es profesional y escalable.
 
 ---
 
-## 🧩 3. interfaz: input + select (v-model)
+# 📌 3. Interfaz: buscador y select (v-model)
 
-En el `<template>`:
+Ya puedes crear la interfaz que usa los filtros.
+`v-model` permite que lo que escribas en el input se sincronice con la variable sin código adicional.
 
 ```vue
 <template>
   <div class="app">
     <h1>{{ titulo }}</h1>
 
-    <!-- 1) buscador -->
+    <!-- buscador -->
     <input
       v-model="search"
       type="text"
@@ -109,19 +124,32 @@ En el `<template>`:
       class="input-busqueda"
     />
 
-    <!-- 2) filtro por tipo -->
+    <!-- filtro por tipo -->
     <select v-model="tipoSeleccionado" class="input-tipo">
-      <option v-for="tipo in tiposDisponibles" :key="tipo" :value="tipo">
+      <option
+        v-for="tipo in tiposDisponibles"
+        :key="tipo"
+        :value="tipo"
+      >
         {{ tipo }}
       </option>
     </select>
 
-    <!-- 3) listado filtrado -->
+    <!-- listado filtrado -->
     <ul class="pokemon-grid">
-      <li v-for="pokemon in pokemonsFiltrados" :key="pokemon.id">
-        <img :src="pokemon.imagen" :alt="pokemon.nombre">
-        <h3>#{{ pokemon.id }} {{ pokemon.nombre }}</h3>
-        <p>tipos: {{ pokemon.tipos.join(', ') }}</p>
+      <li
+        v-for="pokemon in pokemonsFiltrados"
+        :key="pokemon.id"
+      >
+        <div class="pokemon-card">
+          <img
+            :src="pokemon.imagen"
+            :alt="`imagen de ${pokemon.nombre}`"
+            class="pokemon-image"
+          >
+          <h3>#{{ pokemon.id }} {{ pokemon.nombre }}</h3>
+          <p>Tipos: {{ pokemon.tipos.join(', ') }}</p>
+        </div>
       </li>
     </ul>
   </div>
@@ -130,7 +158,7 @@ En el `<template>`:
 
 ---
 
-## ✨ 4. estilos propuestos (opcionales)
+# 🎨 Estilos recomendados (opcionales)
 
 ```vue
 <style scoped>
@@ -149,31 +177,50 @@ En el `<template>`:
   list-style: none;
   padding: 0;
 }
+
+.pokemon-card {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.pokemon-image {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
 </style>
 ```
 
 ---
 
-## 📝 ejercicios
+# 📝 Ejercicios
 
-### ✔️ nivel básico
+Realiza estos ejercicios para practicar los conceptos de este apartado.
 
-1. Muestra encima del listado:
-   `Mostrando {{ pokemonsFiltrados.length }} resultados.`
-2. Haz que el buscador no distinga entre mayúsculas/minúsculas (ya ocurre, pero que lo expliquen).
+1. Crea una propiedad computada que devuelva solo los pokémon cuyo nombre **empiece por la letra que escribas** en un segundo input.
 
-### ✔️ nivel medio
+2. Añade un filtro que permita mostrar únicamente los pokémon que tengan **más de un tipo**.
 
-3. Añade un contador que indique cuántos hay de cada tipo.
-4. Añade un botón **"limpiar filtros"**.
+3. Crea un contador que indique **cuántos pokémon hay de cada tipo** según los filtros aplicados.
 
-### ✔️ nivel avanzado
+4. Añade un botón **“limpiar filtros”** que deje todos los valores reactivos en su estado inicial.
 
-5. Haz una computed adicional que devuelva solo los pokémon cuyo nombre empieza por una letra concreta (por ejemplo, `b`).
-6. Crea otro filtro que muestre pokémon solo con más de un tipo.
+5. Crea una propiedad computada adicional que devuelva una **lista ordenada alfabéticamente** de los pokémon filtrados.
 
 ---
 
-## ✔️ siguiente apartado
+Si quieres, hago ahora lo mismo con los ejercicios del **01** para dejarlos totalmente alineados con esta filosofía.
 
-`03-eventos-y-clases-dinamicas.md`
+---
+
+# 🔗 Enlaces
+
+🔙 **Volver al índice general**
+[Ir al README](../README.md)
+
+⏭️ **Siguiente apartado**
+[03 — Eventos y clases dinámicas](./03-eventos-y-clases-dinamicas.md)
