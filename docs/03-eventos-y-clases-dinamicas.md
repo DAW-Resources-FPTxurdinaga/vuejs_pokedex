@@ -245,10 +245,6 @@ Realiza estos ejercicios para practicar los conceptos de este apartado.
 
 ---
 
-Si quieres, ahora adapto también los ejercicios de los bloques 01 y 02 para que cumplan esta misma norma estricta.
-
----
-
 # 🔗 Enlaces
 
 🔙 **Volver al índice general**

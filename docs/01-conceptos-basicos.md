@@ -162,7 +162,7 @@ Puedes añadir este estilo mínimo para que las tarjetas tengan una apariencia m
 ---
 
 
-# 📝 Ejercicios (versión revisada para el apartado 01)
+# 📝 Ejercicios
 
 Realiza estos ejercicios para practicar los conceptos de este apartado.
 
@@ -176,11 +176,6 @@ Realiza estos ejercicios para practicar los conceptos de este apartado.
 4. Añade un nuevo valor reactivo que permita mostrar u ocultar la lista completa con un botón.
 
 5. Crea un filtro muy simple dentro de una propiedad computada que devuelva únicamente los pokémon cuya **identificación sea menor que 10**, y muéstralos debajo de la lista principal.
-
----
-
-Si quieres, ahora te genero el **apartado 04 — Componentes (props + emits)** siguiendo exactamente la misma estructura que los apartados 01–03.
-
 
 ---
 

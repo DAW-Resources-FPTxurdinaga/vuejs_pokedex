@@ -213,10 +213,6 @@ Realiza estos ejercicios para practicar los conceptos de este apartado.
 
 ---
 
-Si quieres, hago ahora lo mismo con los ejercicios del **01** para dejarlos totalmente alineados con esta filosofía.
-
----
-
 # 🔗 Enlaces
 
 🔙 **Volver al índice general**
