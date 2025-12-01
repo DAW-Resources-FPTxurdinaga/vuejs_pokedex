@@ -46,6 +46,18 @@
         <p>tipos: {{ pokemon.tipos.join(', ') }}</p>
       </li>
     </ul>
+    <p v-if="pokemonsFiltrados.length === 0" class="sin-resultados">
+  No hay pokémon que coincidan con los filtros.
+</p>
+
+<button @click="mostrarInfo = !mostrarInfo" class="info-btn">
+  {{ mostrarInfo ? "Ocultar información de autoría" : "Mostrar información de autoría" }}
+</button>
+
+<p v-show="mostrarInfo" class="info-extra">
+  Este proyecto ha sido desarrollado por Laura Folgado Galache.
+</p>
+
   </div>
 </template>
 
@@ -54,6 +66,7 @@ import { ref, computed } from 'vue'
 
 /* ESTADO BÁSICO */
 const titulo = ref('Pokedex con VueJS')
+const mostrarInfo = ref(false)
 
 const pokemons = ref([
   {
