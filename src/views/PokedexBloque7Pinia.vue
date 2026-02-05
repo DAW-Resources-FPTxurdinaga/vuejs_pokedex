@@ -3,10 +3,7 @@
     <h1>Bloque 7: Favoritos con Pinia</h1>
 
     <!-- Panel de información de Pinia -->
-    <div class="pinia-info">
-      <p><strong>Total Favoritos:</strong> {{ pokemonStore.totalFavoritos }}</p>
-      <p><strong>Lista de IDs:</strong> {{ pokemonStore.favoritos }}</p>
-    </div>
+    
 
     <!-- Lista de Pokémon -->
     <ul class="pokemon-grid">
@@ -16,18 +13,6 @@
         
         <h3>{{ pokemon.nombre }}</h3>
         
-        <!-- 
-          Botón directo:
-          1. Verifica si es favorito en el store para mostrar texto/color
-          2. Al soltar click llama a la acción del store
-        -->
-        <button 
-          @click="pokemonStore.alternarFavorito(pokemon.id)"
-          :class="{ 'es-fav': pokemonStore.esFavorito(pokemon.id) }"
-        >
-          {{ pokemonStore.esFavorito(pokemon.id) ? '❤️' : '🤍' }}
-        </button>
-
       </li>
     </ul>
 
@@ -35,11 +20,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
-import { usePokemonStore } from "../stores/pokemon"
-
-// Accedemos directamente al store
-const pokemonStore = usePokemonStore()
 
 // Lista simple de datos (sin propiedades extra ni computed)
 const pokemons = ref([
