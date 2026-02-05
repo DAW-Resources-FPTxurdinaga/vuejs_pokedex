@@ -2,7 +2,14 @@
 <template>
   <div class="app-shell">
     <header class="topbar">
-      <h1>Pokedex con VueJS · Ejemplos</h1>
+      <div class="header-content">
+        <h1>Pokedex con VueJS · Ejemplos</h1>
+        
+        <div v-if="authStore.isAuthenticated" class="user-info">
+          <span>Usuario: <strong>{{ authStore.username }}</strong></span>
+          <button @click="authStore.logout()" class="btn-logout">Salir</button>
+        </div>
+      </div>
 
       <div class="selector">
         <button
@@ -20,6 +27,41 @@
         >
           Bloque 2: filtros y favoritos
         </button>
+        <button
+          type="button"
+          :class="{ activo: ejemploSeleccionado === 'bloque3' }"
+          @click="ejemploSeleccionado = 'bloque3'"
+        >
+          Bloque 3: detalles y rutas dinámicas
+        </button>
+        <button
+          type="button"
+          :class="{ activo: ejemploSeleccionado === 'fetch' }"
+          @click="ejemploSeleccionado = 'fetch'"
+        >
+          Bloque 4: Fetch API
+        </button>
+        <button
+          type="button"
+          :class="{ activo: ejemploSeleccionado === 'axios' }"
+          @click="ejemploSeleccionado = 'axios'"
+        >
+          Bloque 5: Axios
+        </button>
+        <button
+          type="button"
+          :class="{ activo: ejemploSeleccionado === 'pinia' }"
+          @click="ejemploSeleccionado = 'pinia'"
+        >
+          Bloque 6: Pinia
+        </button>
+        <button
+          type="button"
+          :class="{ activo: ejemploSeleccionado === 'piniafav' }"
+          @click="ejemploSeleccionado = 'piniafav'"
+        >
+          Bloque 7: Pinia Favs
+        </button>
       </div>
     </header>
 
@@ -32,15 +74,27 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useAuthStore } from './stores/auth'
 
 import PokedexBloque1 from './views/PokedexBloque1.vue'
 import PokedexBloque2 from './views/PokedexBloque2.vue'
+import PokedexBloque3 from './views/PokedexBloque3.vue'
+import PokedexFetch from './views/PokedexBloque4Fetch.vue'
+import PokedexAxios from './views/PokedexBloque5Axios.vue'
+import PokedexPinia from './views/PokedexBloque6Pinia.vue'
+import PokedexBloque7Pinia from './views/PokedexBloque7Pinia.vue'
 
+const authStore = useAuthStore()
 const ejemploSeleccionado = ref('bloque1')
 
 const componentes = {
   bloque1: PokedexBloque1,
-  bloque2: PokedexBloque2
+  bloque2: PokedexBloque2,
+  bloque3: PokedexBloque3,
+  fetch: PokedexFetch,
+  axios: PokedexAxios,
+  pinia: PokedexPinia,
+  piniafav: PokedexBloque7Pinia
 }
 
 const componenteActual = computed(() =>
@@ -65,9 +119,35 @@ const componenteActual = computed(() =>
   gap: 0.5rem;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .topbar h1 {
   margin: 0;
   font-size: 1.4rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-logout {
+  padding: 0.3rem 0.6rem;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.btn-logout:hover {
+  background-color: #ddd;
 }
 
 .selector {

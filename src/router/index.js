@@ -12,6 +12,8 @@ import PokedexBloque2 from "../views/PokedexBloque2.vue"
 import PokedexBloque3 from "../views/PokedexBloque3.vue"
 import PokedexBloque4Fetch from "../views/PokedexBloque4Fetch.vue"
 import PokedexBloque5Axios from "../views/PokedexBloque5Axios.vue"
+import PokedexBloque6Pinia from "../views/PokedexBloque6Pinia.vue"
+import PokedexBloque7Pinia from "../views/PokedexBloque7Pinia.vue"
 
 // Vista opcional — Página de inicio muy simple
 const HomeView = {
@@ -41,6 +43,8 @@ const routes = [
   { path: "/bloque3", name: "bloque3", component: PokedexBloque3 },
   { path: "/fetch",   name: "fetch",   component: PokedexBloque4Fetch },
   { path: "/axios",   name: "axios",   component: PokedexBloque5Axios },
+  { path: "/pinia",   name: "pinia",   component: PokedexBloque6Pinia },
+  { path: "/pinia-fav", name: "pinia-fav", component: PokedexBloque7Pinia },
 
   // Ruta dinámica: /pokemon/25
   // Explicación: cualquier componente puede recibir parámetros desde la URL
