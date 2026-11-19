@@ -100,10 +100,10 @@ const mostrarInfo = ref(false)
 
 //  Lista estática inicial de pokémons.
 const pokemons = ref([
-  { id: 1, nombre: "bulbasaur", tipos: ["planta", "veneno"], imagen: "img/bulbasur.png", favorito: false },
-  { id: 4, nombre: "charmander", tipos: ["fuego"], imagen: "img/charmander.png", favorito: false },
-  { id: 7, nombre: "squirtle", tipos: ["agua"], imagen: "img/squirtle.png", favorito: false },
-  { id: 25, nombre: "pikachu", tipos: ["eléctrico"], imagen: "img/pikachu.png", favorito: false },
+  { id: 1, nombre: "bulbasaur", tipos: ["planta", "veneno"], imagen: "/img/bulbasaur.png", favorito: false },
+  { id: 4, nombre: "charmander", tipos: ["fuego"], imagen: "/img/charmander.png", favorito: false },
+  { id: 7, nombre: "squirtle", tipos: ["agua"], imagen: "/img/squirtle.png", favorito: false },
+  { id: 25, nombre: "pikachu", tipos: ["eléctrico"], imagen: "/img/pikachu.png", favorito: false },
 ])
 
 const search = ref("")

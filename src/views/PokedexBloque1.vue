@@ -79,25 +79,25 @@ const pokemons = ref([
     id: 1,
     nombre: 'bulbasaur',
     tipos: ['planta', 'veneno'],
-    imagen: 'img/bulbasur.png'
+    imagen: '/img/bulbasaur.png'
   },
   {
     id: 4,
     nombre: 'charmander',
     tipos: ['fuego'],
-    imagen: 'img/charmander.png'
+    imagen: '/img/charmander.png'
   },
   {
     id: 7,
     nombre: 'squirtle',
     tipos: ['agua'],
-    imagen: 'img/squirtle.png'
+    imagen: '/img/squirtle.png'
   },
   {
     id: 25,
     nombre: 'pikachu',
     tipos: ['eléctrico'],
-    imagen: 'img/pikachu.png'
+    imagen: '/img/pikachu.png'
   }
 ])
 
