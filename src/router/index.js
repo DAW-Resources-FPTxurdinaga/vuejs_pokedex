@@ -46,7 +46,6 @@ const routes = [
   {
     path: "/pokemon/:id",
     name: "pokemon-detalle",
-    props: true, // envía id como prop
     component: () => import("../views/PokemonDetalleView.vue") // carga perezosa
   },
 

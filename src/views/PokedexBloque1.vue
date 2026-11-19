@@ -1,4 +1,4 @@
-<!-- src/App.vue -->
+<!-- src/views/PokedexBloque1.vue -->
 
 <!-- Template sirve para definir la estructura HTML que se renderiza en la aplicación -->
 <!-- A diferencia de div, template no genera un elemento adicional en el DOM -->
@@ -62,7 +62,7 @@
 
 
 
-<!-- src/App.vue -->
+<!-- src/views/PokedexBloque1.vue -->
 <!-- script setup se utiliza para definir la lógica del componente -->
 <!-- setup es obligatorio si utilizamos Composition API -->
 <script setup>

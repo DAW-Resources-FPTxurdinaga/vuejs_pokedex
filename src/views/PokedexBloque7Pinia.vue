@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h1>Bloque 7: Favoritos con Pinia</h1>
+    <h1>08 · Favoritos con Pinia</h1>
 
     <!-- Panel de información de Pinia -->
     <div class="pinia-info">
