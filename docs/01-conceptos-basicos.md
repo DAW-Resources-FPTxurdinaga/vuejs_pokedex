@@ -1,33 +1,44 @@
-# 🔤 01. Conceptos básicos de Vue: Interpolación, `ref`, `v-bind` y `v-for`
+# 🔤 01. Conceptos básicos de Vue: interpolación, `ref`, `v-bind` y `v-for`
 
-En este apartado vas a dar los primeros pasos con Vue dentro de la Pokedex.
-Verás cómo mostrar información en pantalla, cómo almacenar datos reactivos y cómo recorrer listas para generar contenido dinámico.
+En este apartado das los primeros pasos con Vue dentro de la Pokedex. Verás cómo mostrar información en pantalla, cómo guardar datos reactivos y cómo recorrer listas para generar contenido dinámico.
+
+📄 **Archivo de este apartado:** `src/views/PokedexBloque1.vue`
+🌐 **Ruta en la app:** `/bloque1`
 
 ---
 
 ## 🎯 Objetivos del apartado
 
 * Crear valores reactivos con `ref()`.
-* Mostrar información en el template mediante interpolación (`{{ }}`).
-* Enlazar atributos HTML usando `v-bind` (`:`).
-* Recorrer listas usando `v-for` y claves únicas.
-
-Estos conceptos te permitirán construir la base de cualquier aplicación Vue.
+* Mostrar información en el template con interpolación (`{{ }}`).
+* Enlazar atributos HTML con `v-bind` (`:`).
+* Recorrer listas con `v-for` y claves únicas con `:key`.
 
 ---
 
-# 📌 1. Preparar datos iniciales de la Pokedex
+## 🧭 Cómo está organizado el archivo
 
-Vamos a empezar creando un título y una pequeña lista de pokémon.
-Con esto podrás practicar cómo se muestran datos en la interfaz.
+El archivo `PokedexBloque1.vue` contiene los tres pasos del apartado. Los pasos que no están activos están **comentados**, para que puedas activarlos uno a uno:
+
+* **Paso 1:** estructura vacía, sin datos.
+* **Paso 2:** interpolación y un único pokémon.
+* **Paso 3:** lista completa con `v-for`.
+
+Cuando trabajes en el archivo, comenta el paso anterior antes de activar el siguiente.
+
+---
+
+# 📌 1. Preparar los datos iniciales
+
+Empezamos creando un título y una pequeña lista de pokémon. Los datos viven en el `<script setup>`:
 
 ```vue
-<!-- App.vue -->
 <script setup>
 import { ref } from 'vue'
 
-const titulo = ref('pokedex vue')
+const titulo = ref('Pokedex con VueJS')
 
+// lista mínima de pokémon en duro
 const pokemons = ref([
   {
     id: 1,
@@ -57,12 +68,16 @@ const pokemons = ref([
 </script>
 ```
 
+**Ideas clave:**
+
+* `ref()` envuelve un valor para que Vue lo vigile. Cuando cambia, la pantalla se actualiza sola.
+* Dentro del `<script>` accedes al valor con `.value` (`titulo.value`). En el template **no** hace falta.
+
 ---
 
-# 📌 2. Interpolación y uso de `v-bind`
+# 📌 2. Interpolación y `v-bind`
 
-En este apartado vas a practicar cómo mostrar valores en el template y cómo enlazar atributos HTML usando `:`.
-De momento trabajaremos con un solo pokémon para que el ejemplo sea sencillo.
+Mostramos un único pokémon como vista previa. Con `{{ }}` escribimos valores de texto y con `:` (`v-bind`) enlazamos atributos HTML:
 
 ```vue
 <template>
@@ -86,17 +101,22 @@ De momento trabajaremos con un solo pokémon para que el ejemplo sea sencillo.
 </template>
 ```
 
+**Ideas clave:**
+
+* `{{ titulo }}` muestra el valor de la variable.
+* `:src` es la forma corta de `v-bind:src`: el atributo toma el valor de una expresión de JavaScript.
+* Las expresiones pueden ser cualquier cosa válida en JavaScript: `join(', ')`, plantillas de cadena, operaciones…
+
 ---
 
 # 📌 3. Listas con `v-for` y `:key`
 
-Una vez que ya sabes mostrar un pokémon, vas a generar la lista completa recorriendo el array con `v-for`.
-Este patrón es fundamental, porque lo usarás continuamente en Vue.
+Ahora generamos la lista completa recorriendo el array con `v-for`. Es un patrón que vas a usar en casi todos los apartados:
 
 ```vue
 <template>
   <section class="listado">
-    <h2>Lista de pokémon</h2>
+    <h2>Lista de pokémons (versión estática)</h2>
 
     <ul class="pokemon-grid">
       <li
@@ -118,11 +138,16 @@ Este patrón es fundamental, porque lo usarás continuamente en Vue.
 </template>
 ```
 
+**Ideas clave:**
+
+* `v-for="pokemon in pokemons"` crea un elemento por cada pokémon.
+* `:key` identifica cada elemento de forma única. Usa un valor estable (aquí el `id`), nunca el índice del array si la lista puede cambiar.
+
 ---
 
 # 🎨 Estilos básicos
 
-Puedes añadir este estilo mínimo para que las tarjetas tengan una apariencia más cuidada:
+Los estilos de `PokedexBloque1.vue` van en un bloque `<style scoped>`: solo afectan a este componente.
 
 ```vue
 <style scoped>
@@ -161,21 +186,13 @@ Puedes añadir este estilo mínimo para que las tarjetas tengan una apariencia m
 
 ---
 
-
 # 📝 Ejercicios
 
-Realiza estos ejercicios para practicar los conceptos de este apartado.
-
-1. Crea una propiedad computada que devuelva **el número total de tipos distintos** presentes en todos los pokémon.
-
-2. Añade un botón que **cambie dinámicamente el título** (`titulo`) a otro texto y vuelve a pulsarlo para restaurarlo.
-   (Practicas reactividad y eventos básicos.)
-
-3. Crea una sección que muestre **solo los nombres** de todos los pokémon usando otro `v-for`, diferente del listado de tarjetas.
-
-4. Añade un nuevo valor reactivo que permita mostrar u ocultar la lista completa con un botón.
-
-5. Crea un filtro muy simple dentro de una propiedad computada que devuelva únicamente los pokémon cuya **identificación sea menor que 10**, y muéstralos debajo de la lista principal.
+1. Crea una propiedad computada (`computed`) que devuelva **el número de tipos distintos** que hay entre todos los pokémon.
+2. Añade un botón que **cambie el valor de `titulo`** a otro texto y que, al volver a pulsarlo, restaure el original.
+3. Crea una sección que muestre **solo los nombres** de los pokémon con otro `v-for`, separado del listado de tarjetas.
+4. Añade un valor reactivo booleano que permita **mostrar u ocultar** la lista completa con un botón.
+5. Crea una propiedad computada que devuelva solo los pokémon con `id` menor que 10 y muéstralos debajo del listado principal.
 
 ---
 
@@ -183,6 +200,9 @@ Realiza estos ejercicios para practicar los conceptos de este apartado.
 
 🔙 **Volver al índice general**
 [Ir al README](../README.md)
+
+⏮️ **Apartado anterior**
+[00 — Creación del proyecto](./00-creacion-proyecto.md)
 
 ⏭️ **Siguiente apartado**
 [02 — Filtros y búsqueda](./02-filtros-y-busqueda.md)

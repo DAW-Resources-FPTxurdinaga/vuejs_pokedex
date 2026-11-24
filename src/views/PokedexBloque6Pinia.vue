@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>Bloque 6: Pinia + Login</h2>
+    <h2>07 · Pinia + Login</h2>
 
     <!-- FORMULARIO LOGIN -->
     <div v-if="!authStore.isAuthenticated">

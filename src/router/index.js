@@ -15,15 +15,10 @@ import PokedexBloque5Axios from "../views/PokedexBloque5Axios.vue"
 import PokedexBloque6Pinia from "../views/PokedexBloque6Pinia.vue"
 import PokedexBloque7Pinia from "../views/PokedexBloque7Pinia.vue"
 
-// Vista opcional — Página de inicio muy simple
-const HomeView = {
-  template: `
-    <div style="padding:2rem">
-      <h1>📘 Proyecto Pokedex Vue</h1>
-      <p>Elige uno de los bloques para ver el ejemplo correspondiente.</p>
-    </div>
-  `
-}
+// Página de inicio y página 404 (archivos .vue, no plantillas en cadena:
+// la build de Vue que usa Vite no incluye el compilador de plantillas)
+import HomeView from "../views/HomeView.vue"
+import NotFoundView from "../views/NotFoundView.vue"
 
 
 // -------------------------------------------
@@ -51,7 +46,6 @@ const routes = [
   {
     path: "/pokemon/:id",
     name: "pokemon-detalle",
-    props: true, // envía id como prop
     component: () => import("../views/PokemonDetalleView.vue") // carga perezosa
   },
 
@@ -59,9 +53,7 @@ const routes = [
   {
     path: "/:pathMatch(.*)*",
     name: "not-found",
-    component: {
-      template: `<h2 style="padding:2rem;color:red">Página no encontrada (404)</h2>`
-    }
+    component: NotFoundView
   }
 ]
 

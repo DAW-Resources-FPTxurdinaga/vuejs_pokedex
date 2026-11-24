@@ -1,4 +1,4 @@
-<!-- src/App.vue -->
+<!-- src/views/PokedexBloque1.vue -->
 
 <!-- Template sirve para definir la estructura HTML que se renderiza en la aplicación -->
 <!-- A diferencia de div, template no genera un elemento adicional en el DOM -->
@@ -62,7 +62,7 @@
 
 
 
-<!-- src/App.vue -->
+<!-- src/views/PokedexBloque1.vue -->
 <!-- script setup se utiliza para definir la lógica del componente -->
 <!-- setup es obligatorio si utilizamos Composition API -->
 <script setup>
@@ -79,25 +79,25 @@ const pokemons = ref([
     id: 1,
     nombre: 'bulbasaur',
     tipos: ['planta', 'veneno'],
-    imagen: 'img/bulbasur.png'
+    imagen: '/img/bulbasaur.png'
   },
   {
     id: 4,
     nombre: 'charmander',
     tipos: ['fuego'],
-    imagen: 'img/charmander.png'
+    imagen: '/img/charmander.png'
   },
   {
     id: 7,
     nombre: 'squirtle',
     tipos: ['agua'],
-    imagen: 'img/squirtle.png'
+    imagen: '/img/squirtle.png'
   },
   {
     id: 25,
     nombre: 'pikachu',
     tipos: ['eléctrico'],
-    imagen: 'img/pikachu.png'
+    imagen: '/img/pikachu.png'
   }
 ])
 

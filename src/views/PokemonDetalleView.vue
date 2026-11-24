@@ -48,7 +48,7 @@
   3) Guardamos el resultado en un ref() reactivo
 */
 
-import { ref, onMounted } from "vue"
+import { ref, watch } from "vue"
 import { useRoute } from "vue-router"
 
 // Obtenemos el objeto route para leer los parámetros de la URL
@@ -100,10 +100,17 @@ async function cargarPokemon() {
   }
 }
 
-// Cuando se monta el componente, lanzamos la petición automáticamente
-onMounted(() => {
-  cargarPokemon()
-})
+/*
+  Lanzamos la petición al entrar y cada vez que cambia el id de la URL.
+  Usamos watch y no onMounted: si pasamos de /pokemon/25 a /pokemon/4,
+  Vue Router reutiliza este mismo componente y solo cambia el parámetro.
+  onMounted no se volvería a ejecutar y mostraríamos el pokémon anterior.
+*/
+watch(
+  () => route.params.id,
+  () => cargarPokemon(),
+  { immediate: true }
+)
 </script>
 
 <style scoped>

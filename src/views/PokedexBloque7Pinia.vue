@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h1>Bloque 7: Favoritos con Pinia</h1>
+    <h1>08 · Favoritos con Pinia</h1>
 
     <!-- Panel de información de Pinia -->
     <div class="pinia-info">
@@ -43,10 +43,10 @@ const pokemonStore = usePokemonStore()
 
 // Lista simple de datos (sin propiedades extra ni computed)
 const pokemons = ref([
-  { id: 1, nombre: "bulbasaur", imagen: "img/bulbasur.png" },
-  { id: 4, nombre: "charmander", imagen: "img/charmander.png" },
-  { id: 7, nombre: "squirtle", imagen: "img/squirtle.png" },
-  { id: 25, nombre: "pikachu", imagen: "img/pikachu.png" },
+  { id: 1, nombre: "bulbasaur", imagen: "/img/bulbasaur.png" },
+  { id: 4, nombre: "charmander", imagen: "/img/charmander.png" },
+  { id: 7, nombre: "squirtle", imagen: "/img/squirtle.png" },
+  { id: 25, nombre: "pikachu", imagen: "/img/pikachu.png" },
 ])
 </script>
 
